@@ -1,6 +1,12 @@
 ---
 import MainTemplate from '../layouts/MainTemplate.astro';
 import DateAvailability from '../components/DateAvailability.astro';
+import ImageCollage from '../components/ImageCollage.astro';
+import LogoScroller from '../components/LogoScroller.astro';
+
+import { initLogoScroll } from "../js/components/logoScroll.js";
+
+
 
 
 
@@ -8,8 +14,10 @@ import DateAvailability from '../components/DateAvailability.astro';
 import { Image } from "astro:assets";
 import beaverHero from '../assets/homepage/beaver-cartoon.svg';
 import bottomHero from '../assets/homepage/hero-bottom.svg';
+import hpCover from '../assets/homepage/gallery/hp_cover3_notext.png';
 
 ---
+<!-- <script is:inline>"../js/components/logoScroll.js"</script> -->
 
 <MainTemplate>
 	  <!-- HERO SECTION -->
@@ -33,6 +41,8 @@ import bottomHero from '../assets/homepage/hero-bottom.svg';
 
 			<Image src={beaverHero} class="beaver-basic" alt="Beaver Cartoon" />
 		  </div>
+			<Image src={hpCover} class="beaver-basic" alt="Beaver Cartoon" />
+		  </div>
 		  <Image src={bottomHero} class="hero-bottom" alt="bottom hero decor" />
 		</section>
 	
@@ -40,10 +50,11 @@ import bottomHero from '../assets/homepage/hero-bottom.svg';
 	
 		<section class="sub-hero-container">
 		  <div class="sub-hero">
-			<div class="logo-scroll-container">
+			<LogoScroller />
+			<!-- <div class="logo-scroll-container"> -->
 			  <!-- Logos will be dynamically added here by JavaScript -->
 			</div>
-			<!-- <ImageCollage /> -->
+			<ImageCollage />
 			  <!-- Images will be dynamically inserted here -->
 			</div>
   

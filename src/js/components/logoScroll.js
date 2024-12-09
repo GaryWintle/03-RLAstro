@@ -1,9 +1,10 @@
 export function initLogoScroll() {
+  console.log("Hee ha scroll!");
   // Logo Scroll Effect with Vanilla JavaScript
   const logoContainer = document.querySelector(".logo-scroll-container");
 
   // Use Vite's glob import to dynamically import all SVGs from a specific directory
-  const importedLogos = import.meta.glob("/src/images/homepage/logos/*.svg");
+  const importedLogos = import.meta.glob("../assets/homepage/logos/*.svg");
 
   async function loadLogos() {
     // Convert the imported logos object into an array of logo sources

@@ -1,7 +1,7 @@
 export function initDynamicImageCollage() {
   // Use Vite's import.meta.glob to dynamically import images from a folder
   const imageModules = import.meta.glob(
-    "/src/images/homepage/gallery/*.{png,jpg,jpeg,gif,webp}",
+    "../assets/homepage/gallery/*.{png,jpg,jpeg,gif,webp}",
     { eager: true }
   );
 
