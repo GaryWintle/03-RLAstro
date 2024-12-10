@@ -2,8 +2,16 @@
 import { Image } from "astro:assets";
 
 // Import all images from the gallery folder as modules
-const images = import.meta.glob("../assets/gallery/*.{png,jpg,jpeg,gif,webp}", { eager: true });
-const imageModules = Object.values(images).map(img => img.default);
+const images = import.meta.glob("../assets/homepage/gallery/*.{png,jpg,jpeg,gif,webp}", { eager: true });
+
+// Correctly extract the image paths from the imported modules
+const imageModules = Object.values(images).map(img => {
+  // Log the imported module to understand its structure
+  console.log('Imported image module:', img);
+  
+  // Return the image source path
+  return img.default;
+});
 ---
 
 <div class="image-collage">
@@ -11,24 +19,27 @@ const imageModules = Object.values(images).map(img => img.default);
     <Image 
       src={imgSrc} 
       alt={`Gallery Image ${index + 1}`} 
-      class="collage-image" 
+      class="collage-image"
       width={300}
       height={200}
       format="webp"
-      quality={80}
     />
   ))}
 </div>
 
-<script define:vars={{imageModules}}>
-  console.log('Total images:', imageModules.length);
-  console.log('Image modules:', imageModules);
+<script>
+  // Use the same glob import method for dynamic loading
+  const imageModules = import.meta.glob(
+    "../assets/homepage/gallery/*.{png,jpg,jpeg,gif,webp}",
+    { eager: true }
+  );
+
+  // Convert the modules object to an array of image URLs
+  const imageLibrary = Object.keys(imageModules).map((path) => 
+    new URL(path, import.meta.url).href
+  );
 
   const collageContainer = document.querySelector(".image-collage");
-
-  if (!collageContainer) {
-    console.error('Collage container not found');
-  }
 
   // Track the currently displayed images
   let currentImages = [];
@@ -38,33 +49,19 @@ const imageModules = Object.values(images).map(img => img.default);
   currentImages = [...initialImages];
 
   // Render initial images
-  try {
-    collageContainer.innerHTML = initialImages
-      .map(
-        (img, index) => `
-          <img 
-            src="${img}" 
-            alt="Dynamic collage image ${index}" 
-            class="collage-image" 
-            loading="lazy"
-          >
-        `
-      )
-      .join("");
-    
-    console.log('Successfully rendered images');
-  } catch (error) {
-    console.error('Error rendering images:', error);
-  }
+  collageContainer.innerHTML = initialImages
+    .map(
+      (img) => `
+        <img src="${img}" alt="Dynamic collage image" class="collage-image" loading="lazy">
+      `
+    )
+    .join("");
 
   // Get a specified number of unique images
   function getUniqueImages(count, excludeImages = []) {
-    console.log('Available image library:', imageModules);
-    const availableImages = imageModules.filter(
+    const availableImages = imageLibrary.filter(
       (img) => !excludeImages.includes(img)
     );
-
-    console.log('Available images:', availableImages);
 
     // Shuffle available images and return the required number
     return shuffleArray(availableImages).slice(0, count);
