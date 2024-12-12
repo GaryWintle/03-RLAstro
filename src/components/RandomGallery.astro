@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+// Import all images
+const images = import.meta.glob('../assets/homepage/gallery/*.{png,jpg,jpeg,webp}', {
+  eager: true,
+});
+
+// Convert images to an array of image objects
+const imageArray = Object.entries(images).map(([path, img]) => ({
+  src: img.default,
+  alt: path.split('/').pop().split('.')[0]
+}));
+
+// Select a random set of 5 unique images
+const randomImages = imageArray
+  .sort(() => 0.5 - Math.random())
+  .slice(0, 5);
+---
+
+<div class="image-collage">
+  {randomImages.map((image) => (
+    <Image 
+      src={image.src} 
+      alt={image.alt}
+    />
+  ))}
+</div>

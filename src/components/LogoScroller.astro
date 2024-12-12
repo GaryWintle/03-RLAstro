@@ -1,44 +1,52 @@
 ---
+// import {logos} from "../data/logos.js"
+import { Image } from "astro:assets";
+
+import BestBotanical from '../assets/homepage/logos/Best Botanical.svg';
+import BurlingtonCannabis from '../assets/homepage/logos/Burlington Cannabis.svg';
+import CanabisCulture from '../assets/homepage/logos/Canabis Culture.svg';
+import CocaCafe from '../assets/homepage/logos/Coca Cafe.svg';
+import Cracked from '../assets/homepage/logos/Cracked.svg';
+import Fast420 from '../assets/homepage/logos/fast 420.svg';
+import FungiFinder from '../assets/homepage/logos/Fungi Finder.svg';
+import GuerraConsulting from '../assets/homepage/logos/Guerra Consulting.svg';
+import GYDT from '../assets/homepage/logos/GYDT.svg';
+import HarvestCannabis from '../assets/homepage/logos/harvest cannabis.svg';
+import Hightimes from '../assets/homepage/logos/Hightimes.svg';
+import MJCreams from '../assets/homepage/logos/MJ Creams.svg';
+import MushroomDispensary from '../assets/homepage/logos/Mushroom Dispensary.svg';
+import OvergrowCanada from '../assets/homepage/logos/overgrow canada.svg';
+import PotTV from '../assets/homepage/logos/Pot TV.svg';
+import PotheadBooks from '../assets/homepage/logos/Pothead Books.svg';
+import Woodstock from '../assets/homepage/logos/Woodstock.svg';
+
+export const logos = [
+  { src: BestBotanical, alt: 'Best Botanical' },
+  { src: BurlingtonCannabis, alt: 'Burlington Cannabis' },
+  { src: CanabisCulture, alt: 'Canabis Culture' },
+  { src: CocaCafe, alt: 'Coca Cafe' },
+  { src: Cracked, alt: 'Cracked' },
+  { src: Fast420, alt: 'Fast 420' },
+  { src: FungiFinder, alt: 'Fungi Finder' },
+  { src: GuerraConsulting, alt: 'Guerra Consulting' },
+  { src: GYDT, alt: 'GYDT' },
+  { src: HarvestCannabis, alt: 'Harvest Cannabis' },
+  { src: Hightimes, alt: 'Hightimes' },
+  { src: MJCreams, alt: 'MJ Creams' },
+  { src: MushroomDispensary, alt: 'Mushroom Dispensary' },
+  { src: OvergrowCanada, alt: 'Overgrow Canada' },
+  { src: PotTV, alt: 'Pot TV' },
+  { src: PotheadBooks, alt: 'Pothead Books' },
+  { src: Woodstock, alt: 'Woodstock' },
+];
+
 ---
 
-<div class="logo-scroll-container"></div>
-
-<script>
-     // @ts-nocheck
-  console.log("Hee ha scroll!");
-
-  // Select the container for the logos
-  const logoContainer = document.querySelector(".logo-scroll-container");
-
-  // Dynamically import all SVGs from the src/assets/homepage/logos directory
-  const importedLogos = import.meta.glob("../assets/homepage/logos/*.svg", { eager: true });
-
-function loadLogos() {
-  // Extract the `default` property from each module
-  const logoSources = Object.keys(importedLogos).map((path) => {
-  // Resolve the URL properly
-  return new URL(path, import.meta.url).href;
-});
-
-  // Create and append image elements for each logo
-  logoSources.forEach((logoSrc) => {
-    if (logoSrc) {
-      const logoImg = document.createElement("img");
-      logoImg.src = logoSrc; // Use the resolved URL
-      logoImg.classList.add("logo");
-      logoContainer.appendChild(logoImg);
-    }
-  });
-}
+<div class="logo-scroll-container">
+    {logos.map((logo) => (
+        <Image src={logo.src} alt={logo.alt} />
+    ))}
+</div>
 
 
-  function handleScroll() {
-    // Adjust the scroll multiplier to control the speed of logo movement
-    const scrollTranslation = window.scrollY * 0.5;
-    logoContainer.style.transform = `translateX(-${scrollTranslation}px)`;
-  }
 
-  // Initialize logos and add scroll listener
-  loadLogos();
-  window.addEventListener("scroll", handleScroll);
-</script>

@@ -1,0 +1,44 @@
+---
+---
+
+<div class="logo-scroll-container"></div>
+
+<script>
+     // @ts-nocheck
+  console.log("Hee ha scroll!");
+
+  // Select the container for the logos
+  const logoContainer = document.querySelector(".logo-scroll-container");
+
+  // Dynamically import all SVGs from the src/assets/homepage/logos directory
+  const importedLogos = import.meta.glob("../assets/homepage/logos/*.svg", { eager: true });
+
+function loadLogos() {
+  // Extract the `default` property from each module
+  const logoSources = Object.keys(importedLogos).map((path) => {
+  // Resolve the URL properly
+  return new URL(path, import.meta.url).href;
+});
+
+  // Create and append image elements for each logo
+  logoSources.forEach((logoSrc) => {
+    if (logoSrc) {
+      const logoImg = document.createElement("img");
+      logoImg.src = logoSrc; // Use the resolved URL
+      logoImg.classList.add("logo");
+      logoContainer.appendChild(logoImg);
+    }
+  });
+}
+
+
+  function handleScroll() {
+    // Adjust the scroll multiplier to control the speed of logo movement
+    const scrollTranslation = window.scrollY * 0.5;
+    logoContainer.style.transform = `translateX(-${scrollTranslation}px)`;
+  }
+
+  // Initialize logos and add scroll listener
+  loadLogos();
+  window.addEventListener("scroll", handleScroll);
+</script>
