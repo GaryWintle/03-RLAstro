@@ -58,7 +58,7 @@
 
 /* Image Collage */
 
-.image-collage {
+/* .image-collage {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, auto);
@@ -77,7 +77,7 @@
 .collage-image:nth-child(1) {
   grid-column: 1 / span 2;
   grid-row: 1 / span 2;
-}
+} */
 
 .logo-scroll-container {
   display: inline-flex;
