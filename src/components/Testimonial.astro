@@ -1,0 +1,20 @@
+---
+const { testimonial } = Astro.props;
+import { Image } from "astro:assets";
+---
+<div class="testimonial">
+  <div class="test-heading">
+    <Image
+      class="test-pic"
+      src={testimonial.profilePic}
+      alt={testimonial.name}
+      width="64"
+      height="64"
+    />
+    <div>
+      <p class="test-name">{testimonial.name}</p>
+      <p class="test-company">{testimonial.company}</p>
+    </div>
+  </div>
+  <p class="test-quote">{testimonial.message}</p>
+</div>

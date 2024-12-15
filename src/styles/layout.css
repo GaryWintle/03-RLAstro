@@ -79,12 +79,14 @@ li {
 }
 
 .hero-image {
+  background-image: url("../assets/homepage/rl-hero.webp");
   height: auto;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
   background-attachment: fixed;
+  z-index: 0;
 
   &::before {
     content: "";
@@ -100,7 +102,7 @@ li {
     );
     opacity: 0.85;
 
-    /* z-index: -1; */
+    z-index: -1;
   }
 }
 
